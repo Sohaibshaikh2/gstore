@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Karachi General Store - Your One-Stop Grocery Shop</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- Swiper.js CSS for Carousel -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <style>
+      /* Custom Styles & Animations */
+      body {
+        font-family: "Open Sans", sans-serif;
+        background-color: #ffffff;
+        color: #4a5568;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Poppins", sans-serif;
+        color: #1a202c;
+      }
+      /* Style for the active navigation link */
+      .nav-link.active {
+        color: #2563eb; /* Tailwind blue-600 */
+      }
+      .page-section {
+        display: none;
+      }
+      .page-section.active {
+        display: block;
+      }
+
+      .whatsapp-button {
+        background-color: #25d366;
+        transition: all 0.3s ease;
+      }
+      .whatsapp-button:hover {
+        background-color: #1dae51;
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px -5px #1dae51;
+      }
+      .product-card {
+        transition: all 0.3s ease;
+      }
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .product-card:hover .product-hover-icons {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .product-hover-icons {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+      }
+      /* Category Sidebar Styles */
+      .category-link {
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+      .category-link:hover {
+        color: #2563eb;
+        background-color: #eff6ff;
+      }
+      .category-link.active {
+        color: #2563eb;
+        font-weight: 600;
+        background-color: #dbeafe;
+      }
+
+      /* --- Animations --- */
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      .animate-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body class="text-gray-800">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <div
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a
+          href="#home"
+          onclick="showPage('home')"
+          class="text-3xl font-bold text-gray-800"
+        >
+          <i class="fas fa-store text-blue-600"></i> Sprazo
+        </a>
+        <div class="hidden lg:flex w-full max-w-md mx-4">
+          <input
+            type="text"
+            placeholder="Search for products..."
+            class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            class="bg-blue-600 text-white px-4 rounded-r-md hover:bg-blue-700"
+          >
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+        <div class="flex items-center space-x-6">
+          <a href="#" class="text-gray-600 hover:text-blue-600"
+            ><i class="fas fa-user text-xl"></i
+          ></a>
+          <a href="#" class="text-gray-600 hover:text-blue-600 relative">
+            <i class="fas fa-shopping-cart text-xl"></i>
+            <span
+              class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+              >3</span
+            >
+          </a>
+          <button id="mobile-menu-button" class="lg:hidden focus:outline-none">
+            <i class="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden lg:hidden bg-white border-t">
+        <a
+          href="#home"
+          class="block py-3 px-6 text-sm hover:bg-gray-100 mobile-nav-link"
+          onclick="showPage('home')"
+          >Home</a
+        >
+        <a
+          href="#gallery"
+          class="block py-3 px-6 text-sm hover:bg-gray-100 mobile-nav-link"
+          onclick="showPage('gallery')"
+          >Products</a
+        >
+        <a
+          href="#about"
+          class="block py-3 px-6 text-sm hover:bg-gray-100 mobile-nav-link"
+          onclick="showPage('about')"
+          >About Us</a
+        >
+        <a
+          href="#contact"
+          class="block py-3 px-6 text-sm hover:bg-gray-100 mobile-nav-link"
+          onclick="showPage('contact')"
+          >Contact</a
+        >
+      </div>
+    </header>
+
+    <main class="overflow-x-hidden">
+      <!-- Home Page Section -->
+      <section id="home" class="page-section active">
+        <!-- Hero Section -->
+        <div
+          class="h-96 md:h-[500px] bg-cover bg-center text-white flex items-center mb-12"
+          style="
+            background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80');
+          "
+        >
+          <div class="container mx-auto px-6 animate-on-scroll is-visible">
+            <h2
+              class="text-4xl md:text-6xl font-bold mb-4"
+              style="text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6)"
+            >
+              Get up to 30% Off <br />
+              New Arrivals
+            </h2>
+            <a
+              href="#gallery"
+              onclick="showPage('gallery')"
+              class="bg-white text-gray-800 font-bold py-3 px-6 rounded-md hover:bg-gray-200 transition"
+              style="box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4)"
+              >Shop Now</a
+            >
+          </div>
+        </div>
+
+        <div class="container mx-auto px-6">
+          <!-- Featured Categories -->
+          <div class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 animate-on-scroll">
+              Featured Top Categories
+            </h2>
+            <div
+              class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 text-center"
+            >
+              <div class="animate-on-scroll" style="animation-delay: 0.1s">
+                <a
+                  href="#"
+                  onclick="showPage('gallery'); filterProducts('vegetable');"
+                  class="block p-4 bg-gray-50 rounded-lg hover:shadow-lg hover:-translate-y-1 transition-all"
+                  ><img
+                    src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&h=100&q=80"
+                    class="mx-auto rounded-full mb-2 object-cover w-24 h-24"
+                    alt="Vegetables"
+                  /><span class="font-semibold">Vegetables</span></a
+                >
+              </div>
+              <div class="animate-on-scroll" style="animation-delay: 0.2s">
+                <a
+                  href="#"
+                  onclick="showPage('gallery'); filterProducts('fruit');"
+                  class="block p-4 bg-gray-50 rounded-lg hover:shadow-lg hover:-translate-y-1 transition-all"
+                  ><img
+                    src="https://images.unsplash.com/photo-1528825871115-3581a5387919?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&h=100&q=80"
+                    class="mx-auto rounded-full mb-2 object-cover w-24 h-24"
+                    alt="Fruits"
+                  /><span class="font-semibold">Fresh Fruits</span></a
+                >
+              </div>
+              <div class="animate-on-scroll" style="animation-delay: 0.3s">
+                <a
+                  href="#"
+                  onclick="showPage('gallery'); filterProducts('pantry');"
+                  class="block p-4 bg-gray-50 rounded-lg hover:shadow-lg hover:-translate-y-1 transition-all"
+                  ><img
+                    src="https://images.unsplash.com/photo-1550583724-b2692b85b210?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&h=100&q=80"
+                    class="mx-auto rounded-full mb-2 object-cover w-24 h-24"
+                    alt="Milk"
+                  /><span class="font-semibold">Milk & Eggs</span></a
+                >
+              </div>
+              <div class="animate-on-scroll" style="animation-delay: 0.4s">
+                <a
+                  href="#"
+                  onclick="showPage('gallery'); filterProducts('pantry');"
+                  class="block p-4 bg-gray-50 rounded-lg hover:shadow-lg hover:-translate-y-1 transition-all"
+                  ><img
+                    src="https://images.unsplash.com/photo-1582912440738-d3c50106259f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&h=100&q=80"
+                    class="mx-auto rounded-full mb-2 object-cover w-24 h-24"
+                    alt="Snacks"
+                  /><span class="font-semibold">Snacks</span></a
+                >
+              </div>
+              <div class="animate-on-scroll" style="animation-delay: 0.5s">
+                <a
+                  href="#"
+                  onclick="showPage('gallery'); filterProducts('pantry');"
+                  class="block p-4 bg-gray-50 rounded-lg hover:shadow-lg hover:-translate-y-1 transition-all"
+                  ><img
+                    src="https://images.unsplash.com/photo-1543253687-c931c8e01820?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&h=100&q=80"
+                    class="mx-auto rounded-full mb-2 object-cover w-24 h-24"
+                    alt="Drinks"
+                  /><span class="font-semibold">Cold Drinks</span></a
+                >
+              </div>
+              <div class="animate-on-scroll" style="animation-delay: 0.6s">
+                <a
+                  href="#"
+                  onclick="showPage('gallery'); filterProducts('pantry');"
+                  class="block p-4 bg-gray-50 rounded-lg hover:shadow-lg hover:-translate-y-1 transition-all"
+                  ><img
+                    src="https://images.unsplash.com/photo-1608683569794-cf3c337b186a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&h=100&q=80"
+                    class="mx-auto rounded-full mb-2 object-cover w-24 h-24"
+                    alt="Dry Fruits"
+                  /><span class="font-semibold">Dry Fruits</span></a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Features/Services Bar -->
+          <div
+            class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 p-8 bg-gray-50 rounded-lg"
+          >
+            <div class="text-center animate-on-scroll">
+              <i class="fas fa-truck text-3xl text-blue-600 mb-2"></i>
+              <h4 class="font-semibold">Free Shipping</h4>
+              <p class="text-sm">On all orders over Rs 2000</p>
+            </div>
+            <div
+              class="text-center animate-on-scroll"
+              style="animation-delay: 0.1s"
+            >
+              <i class="fas fa-headset text-3xl text-blue-600 mb-2"></i>
+              <h4 class="font-semibold">24/7 Support</h4>
+              <p class="text-sm">Get help when you need it</p>
+            </div>
+            <div
+              class="text-center animate-on-scroll"
+              style="animation-delay: 0.2s"
+            >
+              <i class="fas fa-undo text-3xl text-blue-600 mb-2"></i>
+              <h4 class="font-semibold">30 Days Return</h4>
+              <p class="text-sm">Satisfaction guaranteed</p>
+            </div>
+            <div
+              class="text-center animate-on-scroll"
+              style="animation-delay: 0.3s"
+            >
+              <i class="fas fa-credit-card text-3xl text-blue-600 mb-2"></i>
+              <h4 class="font-semibold">Payment Secure</h4>
+              <p class="text-sm">100% secure payments</p>
+            </div>
+          </div>
+
+          <!-- Offer Countdown Section -->
+          <div
+            class="bg-cover bg-center rounded-lg p-8 md:p-16 flex items-center mb-16 animate-on-scroll"
+            style="
+              background-image: url('https://images.unsplash.com/photo-1590841338656-fb6983082f53?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');
+            "
+          >
+            <div class="md:w-1/2">
+              <h3 class="text-green-800 font-semibold">FRESH FRUITS</h3>
+              <h2 class="text-4xl font-bold my-4 text-gray-900">
+                Hurry Up! Offer ends in:
+              </h2>
+              <div
+                id="countdown"
+                class="flex space-x-4 text-center text-gray-800"
+              >
+                <div>
+                  <span
+                    id="days"
+                    class="text-3xl font-bold bg-white/50 p-3 rounded-md"
+                  ></span>
+                  <p>Days</p>
+                </div>
+                <div>
+                  <span
+                    id="hours"
+                    class="text-3xl font-bold bg-white/50 p-3 rounded-md"
+                  ></span>
+                  <p>Hours</p>
+                </div>
+                <div>
+                  <span
+                    id="minutes"
+                    class="text-3xl font-bold bg-white/50 p-3 rounded-md"
+                  ></span>
+                  <p>Mins</p>
+                </div>
+                <div>
+                  <span
+                    id="seconds"
+                    class="text-3xl font-bold bg-white/50 p-3 rounded-md"
+                  ></span>
+                  <p>Secs</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Products Section -->
+          <div class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 animate-on-scroll">
+              Our Features Collection
+            </h2>
+            <div
+              id="product-tabs"
+              class="flex justify-center space-x-4 mb-8 animate-on-scroll"
+            >
+              <button class="product-tab active font-semibold" data-tab="new">
+                New Arrival
+              </button>
+              <button class="product-tab" data-tab="best">Best Sellers</button>
+            </div>
+            <!-- New Arrivals -->
+            <div
+              id="new"
+              class="tab-content grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+            >
+              <!-- Product p1 -->
+              <div
+                class="product-card bg-white rounded-lg shadow-sm overflow-hidden group animate-on-scroll"
+                data-product-id="p1"
+                data-category="fruit"
+              >
+                <div class="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1587393855524-087f83d95c9f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                    alt="Strawberry"
+                    class="w-full h-48 object-cover cursor-pointer"
+                    onclick="showProductDetail('p1')"
+                  />
+                  <div
+                    class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                  >
+                    <button
+                      onclick="shopOnWhatsApp('p1')"
+                      class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                    >
+                      <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                    </button>
+                  </div>
+                </div>
+                <div class="p-4">
+                  <h3
+                    class="font-bold text-lg mb-1 cursor-pointer"
+                    onclick="showProductDetail('p1')"
+                  >
+                    Fresh Strawberry
+                  </h3>
+                  <p class="text-blue-600 font-semibold">
+                    Rs 350 <span class="text-gray-400 text-sm">/kg</span>
+                  </p>
+                </div>
+              </div>
+              <!-- Product p2 -->
+              <div
+                class="product-card bg-white rounded-lg shadow-sm overflow-hidden group animate-on-scroll"
+                style="animation-delay: 0.1s"
+                data-product-id="p2"
+                data-category="vegetable"
+              >
+                <div class="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1518977956812-af038af24c99?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                    alt="Cauliflower"
+                    class="w-full h-48 object-cover cursor-pointer"
+                    onclick="showProductDetail('p2')"
+                  />
+                  <div
+                    class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                  >
+                    <button
+                      onclick="shopOnWhatsApp('p2')"
+                      class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                    >
+                      <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                    </button>
+                  </div>
+                </div>
+                <div class="p-4">
+                  <h3
+                    class="font-bold text-lg mb-1 cursor-pointer"
+                    onclick="showProductDetail('p2')"
+                  >
+                    Cauliflower
+                  </h3>
+                  <p class="text-blue-600 font-semibold">
+                    Rs 80 <span class="text-gray-400 text-sm">/kg</span>
+                  </p>
+                </div>
+              </div>
+              <!-- Product p3 -->
+              <div
+                class="product-card bg-white rounded-lg shadow-sm overflow-hidden group animate-on-scroll"
+                style="animation-delay: 0.2s"
+                data-product-id="p3"
+                data-category="pantry"
+              >
+                <div class="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1565279261304-22b515d4872f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                    alt="Walnut"
+                    class="w-full h-48 object-cover cursor-pointer"
+                    onclick="showProductDetail('p3')"
+                  />
+                  <div
+                    class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                  >
+                    <button
+                      onclick="shopOnWhatsApp('p3')"
+                      class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                    >
+                      <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                    </button>
+                  </div>
+                </div>
+                <div class="p-4">
+                  <h3
+                    class="font-bold text-lg mb-1 cursor-pointer"
+                    onclick="showProductDetail('p3')"
+                  >
+                    Dry Walnut
+                  </h3>
+                  <p class="text-blue-600 font-semibold">
+                    Rs 1,100 <span class="text-gray-400 text-sm">/kg</span>
+                  </p>
+                </div>
+              </div>
+              <!-- Product p4 -->
+              <div
+                class="product-card bg-white rounded-lg shadow-sm overflow-hidden group animate-on-scroll"
+                style="animation-delay: 0.3s"
+                data-product-id="p4"
+                data-category="vegetable"
+              >
+                <div class="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1599313333333-a365f5a2e558?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                    alt="Red Chilli"
+                    class="w-full h-48 object-cover cursor-pointer"
+                    onclick="showProductDetail('p4')"
+                  />
+                  <div
+                    class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                  >
+                    <button
+                      onclick="shopOnWhatsApp('p4')"
+                      class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                    >
+                      <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                    </button>
+                  </div>
+                </div>
+                <div class="p-4">
+                  <h3
+                    class="font-bold text-lg mb-1 cursor-pointer"
+                    onclick="showProductDetail('p4')"
+                  >
+                    Red Chilli
+                  </h3>
+                  <p class="text-blue-600 font-semibold">
+                    Rs 220 <span class="text-gray-400 text-sm">/kg</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Best Sellers -->
+            <div
+              id="best"
+              class="tab-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+            >
+              <!-- Product p5 -->
+              <div
+                class="product-card bg-white rounded-lg shadow-sm overflow-hidden group"
+                data-product-id="p5"
+                data-category="pantry"
+              >
+                <div class="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1598274291416-527e024222f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                    alt="Wheat Flour"
+                    class="w-full h-48 object-cover cursor-pointer"
+                    onclick="showProductDetail('p5')"
+                  />
+                  <div
+                    class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                  >
+                    <button
+                      onclick="shopOnWhatsApp('p5')"
+                      class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                    >
+                      <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                    </button>
+                  </div>
+                </div>
+                <div class="p-4">
+                  <h3
+                    class="font-bold text-lg mb-1 cursor-pointer"
+                    onclick="showProductDetail('p5')"
+                  >
+                    Wheat Flour (10kg)
+                  </h3>
+                  <p class="text-blue-600 font-semibold">Rs 1,300</p>
+                </div>
+              </div>
+              <!-- Product p6 -->
+              <div
+                class="product-card bg-white rounded-lg shadow-sm overflow-hidden group"
+                data-product-id="p6"
+                data-category="pantry"
+              >
+                <div class="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1585435422891-eb66627c54d1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                    alt="Basmati Rice"
+                    class="w-full h-48 object-cover cursor-pointer"
+                    onclick="showProductDetail('p6')"
+                  />
+                  <div
+                    class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                  >
+                    <button
+                      onclick="shopOnWhatsApp('p6')"
+                      class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                    >
+                      <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                    </button>
+                  </div>
+                </div>
+                <div class="p-4">
+                  <h3
+                    class="font-bold text-lg mb-1 cursor-pointer"
+                    onclick="showProductDetail('p6')"
+                  >
+                    Basmati Rice (5kg)
+                  </h3>
+                  <p class="text-blue-600 font-semibold">Rs 1,250</p>
+                </div>
+              </div>
+              <!-- Product p7 -->
+              <div
+                class="product-card bg-white rounded-lg shadow-sm overflow-hidden group"
+                data-product-id="p7"
+                data-category="pantry"
+              >
+                <div class="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1627843224743-042a2e5a8a2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                    alt="Cooking Oil"
+                    class="w-full h-48 object-cover cursor-pointer"
+                    onclick="showProductDetail('p7')"
+                  />
+                  <div
+                    class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                  >
+                    <button
+                      onclick="shopOnWhatsApp('p7')"
+                      class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                    >
+                      <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                    </button>
+                  </div>
+                </div>
+                <div class="p-4">
+                  <h3
+                    class="font-bold text-lg mb-1 cursor-pointer"
+                    onclick="showProductDetail('p7')"
+                  >
+                    Cooking Oil (3L)
+                  </h3>
+                  <p class="text-blue-600 font-semibold">Rs 1,500</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery Page Section -->
+      <section id="gallery" class="page-section">
+        <div class="container mx-auto px-6 py-8">
+          <h2 class="text-3xl font-bold text-center mb-12 animate-on-scroll">
+            All Our Products
+          </h2>
+
+          <div class="flex flex-col md:flex-row gap-8">
+            <!-- Category Sidebar -->
+            <aside class="md:w-1/4 animate-on-scroll">
+              <div class="bg-gray-50 rounded-lg p-6 shadow-sm sticky top-24">
+                <h3 class="text-xl font-bold mb-4">Categories</h3>
+                <ul class="space-y-2" id="category-sidebar">
+                  <li>
+                    <a
+                      class="category-link active p-2 rounded-md block"
+                      onclick="filterProducts('all', this)"
+                      >All Products</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="category-link p-2 rounded-md block"
+                      onclick="filterProducts('vegetable', this)"
+                      >Fresh Vegetables</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="category-link p-2 rounded-md block"
+                      onclick="filterProducts('fruit', this)"
+                      >Fresh Fruits</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="category-link p-2 rounded-md block"
+                      onclick="filterProducts('pantry', this)"
+                      >Pantry & Staples</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </aside>
+
+            <!-- Products Grid -->
+            <div class="md:w-3/4">
+              <div
+                id="product-grid"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+              >
+                <!-- p2 -->
+                <div
+                  class="product-card bg-white rounded-lg shadow-sm overflow-hidden group animate-on-scroll"
+                  data-product-id="p2"
+                  data-category="vegetable"
+                >
+                  <div class="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1518977956812-af038af24c99?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                      alt="Cauliflower"
+                      class="w-full h-48 object-cover cursor-pointer"
+                      onclick="showProductDetail('p2')"
+                    />
+                    <div
+                      class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                    >
+                      <button
+                        onclick="shopOnWhatsApp('p2')"
+                        class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                      >
+                        <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                      </button>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <h3
+                      class="font-bold text-lg mb-1 cursor-pointer"
+                      onclick="showProductDetail('p2')"
+                    >
+                      Cauliflower
+                    </h3>
+                    <p class="text-blue-600 font-semibold">
+                      Rs 80 <span class="text-gray-400 text-sm">/kg</span>
+                    </p>
+                  </div>
+                </div>
+                <!-- p4 -->
+                <div
+                  class="product-card bg-white rounded-lg shadow-sm overflow-hidden group animate-on-scroll"
+                  data-product-id="p4"
+                  data-category="vegetable"
+                >
+                  <div class="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1599313333333-a365f5a2e558?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                      alt="Red Chilli"
+                      class="w-full h-48 object-cover cursor-pointer"
+                      onclick="showProductDetail('p4')"
+                    />
+                    <div
+                      class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                    >
+                      <button
+                        onclick="shopOnWhatsApp('p4')"
+                        class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                      >
+                        <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                      </button>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <h3
+                      class="font-bold text-lg mb-1 cursor-pointer"
+                      onclick="showProductDetail('p4')"
+                    >
+                      Red Chilli
+                    </h3>
+                    <p class="text-blue-600 font-semibold">
+                      Rs 220 <span class="text-gray-400 text-sm">/kg</span>
+                    </p>
+                  </div>
+                </div>
+                <!-- p8 -->
+                <div
+                  class="product-card bg-white rounded-lg shadow-sm overflow-hidden group animate-on-scroll"
+                  data-product-id="p8"
+                  data-category="vegetable"
+                >
+                  <div class="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1561138241-943dece74a38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                      alt="Tomato"
+                      class="w-full h-48 object-cover cursor-pointer"
+                      onclick="showProductDetail('p8')"
+                    />
+                    <div
+                      class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                    >
+                      <button
+                        onclick="shopOnWhatsApp('p8')"
+                        class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                      >
+                        <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                      </button>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <h3
+                      class="font-bold text-lg mb-1 cursor-pointer"
+                      onclick="showProductDetail('p8')"
+                    >
+                      Tomato
+                    </h3>
+                    <p class="text-blue-600 font-semibold">
+                      Rs 120 <span class="text-gray-400 text-sm">/kg</span>
+                    </p>
+                  </div>
+                </div>
+                <!-- p9 -->
+                <div
+                  class="product-card bg-white rounded-lg shadow-sm overflow-hidden group animate-on-scroll"
+                  data-product-id="p9"
+                  data-category="vegetable"
+                >
+                  <div class="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1599295322922-a43d0bac4a26?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                      alt="Bell Pepper"
+                      class="w-full h-48 object-cover cursor-pointer"
+                      onclick="showProductDetail('p9')"
+                    />
+                    <div
+                      class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                    >
+                      <button
+                        onclick="shopOnWhatsApp('p9')"
+                        class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                      >
+                        <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                      </button>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <h3
+                      class="font-bold text-lg mb-1 cursor-pointer"
+                      onclick="showProductDetail('p9')"
+                    >
+                      Bell Pepper
+                    </h3>
+                    <p class="text-blue-600 font-semibold">
+                      Rs 180 <span class="text-gray-400 text-sm">/kg</span>
+                    </p>
+                  </div>
+                </div>
+                <!-- p1 -->
+                <div
+                  class="product-card bg-white rounded-lg shadow-sm overflow-hidden group animate-on-scroll"
+                  data-product-id="p1"
+                  data-category="fruit"
+                >
+                  <div class="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1587393855524-087f83d95c9f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                      alt="Strawberry"
+                      class="w-full h-48 object-cover cursor-pointer"
+                      onclick="showProductDetail('p1')"
+                    />
+                    <div
+                      class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                    >
+                      <button
+                        onclick="shopOnWhatsApp('p1')"
+                        class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                      >
+                        <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                      </button>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <h3
+                      class="font-bold text-lg mb-1 cursor-pointer"
+                      onclick="showProductDetail('p1')"
+                    >
+                      Fresh Strawberry
+                    </h3>
+                    <p class="text-blue-600 font-semibold">
+                      Rs 350 <span class="text-gray-400 text-sm">/kg</span>
+                    </p>
+                  </div>
+                </div>
+                <!-- p10 -->
+                <div
+                  class="product-card bg-white rounded-lg shadow-sm overflow-hidden group animate-on-scroll"
+                  data-product-id="p10"
+                  data-category="fruit"
+                >
+                  <div class="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1528825871115-3581a5387919?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                      alt="Banana"
+                      class="w-full h-48 object-cover cursor-pointer"
+                      onclick="showProductDetail('p10')"
+                    />
+                    <div
+                      class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                    >
+                      <button
+                        onclick="shopOnWhatsApp('p10')"
+                        class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                      >
+                        <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                      </button>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <h3
+                      class="font-bold text-lg mb-1 cursor-pointer"
+                      onclick="showProductDetail('p10')"
+                    >
+                      Banana
+                    </h3>
+                    <p class="text-blue-600 font-semibold">
+                      Rs 90 <span class="text-gray-400 text-sm">/dozen</span>
+                    </p>
+                  </div>
+                </div>
+                <!-- p11 -->
+                <div
+                  class="product-card bg-white rounded-lg shadow-sm overflow-hidden group animate-on-scroll"
+                  data-product-id="p11"
+                  data-category="fruit"
+                >
+                  <div class="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1547514701-42782101795e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                      alt="Orange"
+                      class="w-full h-48 object-cover cursor-pointer"
+                      onclick="showProductDetail('p11')"
+                    />
+                    <div
+                      class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                    >
+                      <button
+                        onclick="shopOnWhatsApp('p11')"
+                        class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                      >
+                        <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                      </button>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <h3
+                      class="font-bold text-lg mb-1 cursor-pointer"
+                      onclick="showProductDetail('p11')"
+                    >
+                      Orange
+                    </h3>
+                    <p class="text-blue-600 font-semibold">
+                      Rs 150 <span class="text-gray-400 text-sm">/dozen</span>
+                    </p>
+                  </div>
+                </div>
+                <!-- p12 -->
+                <div
+                  class="product-card bg-white rounded-lg shadow-sm overflow-hidden group animate-on-scroll"
+                  data-product-id="p12"
+                  data-category="fruit"
+                >
+                  <div class="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1560806887-1e4cd0b69665?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                      alt="Apple"
+                      class="w-full h-48 object-cover cursor-pointer"
+                      onclick="showProductDetail('p12')"
+                    />
+                    <div
+                      class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                    >
+                      <button
+                        onclick="shopOnWhatsApp('p12')"
+                        class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                      >
+                        <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                      </button>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <h3
+                      class="font-bold text-lg mb-1 cursor-pointer"
+                      onclick="showProductDetail('p12')"
+                    >
+                      Apple
+                    </h3>
+                    <p class="text-blue-600 font-semibold">
+                      Rs 250 <span class="text-gray-400 text-sm">/kg</span>
+                    </p>
+                  </div>
+                </div>
+                <!-- p5 -->
+                <div
+                  class="product-card bg-white rounded-lg shadow-sm overflow-hidden group"
+                  data-product-id="p5"
+                  data-category="pantry"
+                >
+                  <div class="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1598274291416-527e024222f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                      alt="Wheat Flour"
+                      class="w-full h-48 object-cover cursor-pointer"
+                      onclick="showProductDetail('p5')"
+                    />
+                    <div
+                      class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                    >
+                      <button
+                        onclick="shopOnWhatsApp('p5')"
+                        class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                      >
+                        <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                      </button>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <h3
+                      class="font-bold text-lg mb-1 cursor-pointer"
+                      onclick="showProductDetail('p5')"
+                    >
+                      Wheat Flour (10kg)
+                    </h3>
+                    <p class="text-blue-600 font-semibold">Rs 1,300</p>
+                  </div>
+                </div>
+                <!-- p6 -->
+                <div
+                  class="product-card bg-white rounded-lg shadow-sm overflow-hidden group"
+                  data-product-id="p6"
+                  data-category="pantry"
+                >
+                  <div class="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1585435422891-eb66627c54d1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                      alt="Basmati Rice"
+                      class="w-full h-48 object-cover cursor-pointer"
+                      onclick="showProductDetail('p6')"
+                    />
+                    <div
+                      class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                    >
+                      <button
+                        onclick="shopOnWhatsApp('p6')"
+                        class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                      >
+                        <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                      </button>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <h3
+                      class="font-bold text-lg mb-1 cursor-pointer"
+                      onclick="showProductDetail('p6')"
+                    >
+                      Basmati Rice (5kg)
+                    </h3>
+                    <p class="text-blue-600 font-semibold">Rs 1,250</p>
+                  </div>
+                </div>
+                <!-- p7 -->
+                <div
+                  class="product-card bg-white rounded-lg shadow-sm overflow-hidden group"
+                  data-product-id="p7"
+                  data-category="pantry"
+                >
+                  <div class="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1627843224743-042a2e5a8a2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                      alt="Cooking Oil"
+                      class="w-full h-48 object-cover cursor-pointer"
+                      onclick="showProductDetail('p7')"
+                    />
+                    <div
+                      class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                    >
+                      <button
+                        onclick="shopOnWhatsApp('p7')"
+                        class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                      >
+                        <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                      </button>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <h3
+                      class="font-bold text-lg mb-1 cursor-pointer"
+                      onclick="showProductDetail('p7')"
+                    >
+                      Cooking Oil (3L)
+                    </h3>
+                    <p class="text-blue-600 font-semibold">Rs 1,500</p>
+                  </div>
+                </div>
+                <!-- p3 -->
+                <div
+                  class="product-card bg-white rounded-lg shadow-sm overflow-hidden group animate-on-scroll"
+                  data-product-id="p3"
+                  data-category="pantry"
+                >
+                  <div class="relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1565279261304-22b515d4872f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300&q=80"
+                      alt="Walnut"
+                      class="w-full h-48 object-cover cursor-pointer"
+                      onclick="showProductDetail('p3')"
+                    />
+                    <div
+                      class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center product-hover-icons"
+                    >
+                      <button
+                        onclick="shopOnWhatsApp('p3')"
+                        class="whatsapp-button text-white font-bold py-2 px-4 rounded-md w-4/5 flex items-center justify-center"
+                      >
+                        <i class="fab fa-whatsapp mr-2"></i> Shop Now
+                      </button>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <h3
+                      class="font-bold text-lg mb-1 cursor-pointer"
+                      onclick="showProductDetail('p3')"
+                    >
+                      Dry Walnut
+                    </h3>
+                    <p class="text-blue-600 font-semibold">
+                      Rs 1,100 <span class="text-gray-400 text-sm">/kg</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Product Detail Page Section -->
+      <section id="product-detail" class="page-section">
+        <div class="container mx-auto px-6 py-8">
+          <!-- Back Button -->
+          <button
+            onclick="showPage('gallery')"
+            class="mb-6 text-blue-600 hover:text-blue-800 transition-colors"
+          >
+            <i class="fas fa-arrow-left mr-2"></i> Back to Products
+          </button>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            <!-- Product Image -->
+            <div class="animate-on-scroll">
+              <img
+                id="detail-img"
+                src="https://images.unsplash.com/photo-1587393855524-087f83d95c9f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=500&q=80"
+                alt="Product Image"
+                class="w-full h-auto rounded-lg shadow-lg object-cover"
+              />
+            </div>
+
+            <!-- Product Info -->
+            <div class="animate-on-scroll" style="animation-delay: 0.1s">
+              <h2 id="detail-name" class="text-4xl font-bold mb-4">
+                Product Name
+              </h2>
+              <p
+                id="detail-price"
+                class="text-3xl font-semibold text-blue-600 mb-6"
+              >
+                Product Price
+              </p>
+
+              <h3 class="text-xl font-bold mb-2">Description</h3>
+              <p id="detail-desc" class="text-gray-600 leading-relaxed mb-8">
+                This is a placeholder description for the product. It highlights
+                the key features, benefits, and quality of the item.
+              </p>
+
+              <!-- WhatsApp Button -->
+              <button
+                id="detail-whatsapp-btn"
+                class="whatsapp-button text-white font-bold py-3 px-8 rounded-md w-full text-lg flex items-center justify-center"
+              >
+                <i class="fab fa-whatsapp mr-3 fa-lg"></i> Shop Now on WhatsApp
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Page Section -->
+      <section id="about" class="page-section">
+        <div class="container mx-auto px-6 py-8">
+          <h2 class="text-3xl font-bold text-center">About Us</h2>
+          <p class="text-center mt-4">
+            Information about Karachi General Store.
+          </p>
+        </div>
+      </section>
+
+      <!-- Contact Page Section -->
+      <section id="contact" class="page-section">
+        <div class="container mx-auto px-6 py-8">
+          <h2 class="text-3xl font-bold text-center">Contact Us</h2>
+          <p class="text-center mt-4">Contact form and details.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 mt-12 pt-12">
+      <!-- Newsletter Section -->
+      <div class="container mx-auto px-6 mb-12 text-center">
+        <h2 class="text-3xl font-bold">
+          Stay Updated! Subscribe for Future Content
+        </h2>
+        <p class="mt-2 mb-6">
+          Get e-mail updates about our latest shop and special offers.
+        </p>
+        <div class="flex justify-center">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            class="w-full max-w-md px-4 py-3 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            class="bg-blue-600 text-white font-semibold px-6 rounded-r-md hover:bg-blue-700"
+          >
+            Subscribe
+          </button>
+        </div>
+      </div>
+      <div class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-10">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">Sprazo</h3>
+              <p class="text-gray-400">
+                Your one-stop shop for fresh and quality groceries.
+              </p>
+              <div class="flex mt-4 space-x-2">
+                <img
+                  src="https://placehold.co/120x40/000000/ffffff?text=App+Store"
+                  alt="App Store"
+                  class="rounded"
+                /><img
+                  src="https://placehold.co/120x40/000000/ffffff?text=Play+Store"
+                  alt="Play Store"
+                  class="rounded"
+                />
+              </div>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+              <ul class="text-gray-400 space-y-2">
+                <li>
+                  <a
+                    href="#home"
+                    onclick="showPage('home')"
+                    class="hover:text-white"
+                    >Home</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#gallery"
+                    onclick="showPage('gallery')"
+                    class="hover:text-white"
+                    >Products</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#about"
+                    onclick="showPage('about')"
+                    class="hover:text-white"
+                    >About Us</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#contact"
+                    onclick="showPage('contact')"
+                    class="hover:text-white"
+                    >Contact</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+              <ul class="text-gray-400 space-y-2">
+                <li>(021) 3123-4567</li>
+                <li>orders@karachistore.com</li>
+                <li>Tariq Road, Karachi</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+              <div class="flex space-x-4">
+                <a href="#" class="text-gray-400 hover:text-white"
+                  ><i class="fab fa-facebook fa-lg"></i></a
+                ><a href="#" class="text-gray-400 hover:text-white"
+                  ><i class="fab fa-instagram fa-lg"></i></a
+                ><a href="#" class="text-gray-400 hover:text-white"
+                  ><i class="fab fa-twitter fa-lg"></i></a
+                ><a href="#" class="text-gray-400 hover:text-white"
+                  ><i class="fab fa-whatsapp fa-lg"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500"
+          >
+            <p>&copy; 2024 Karachi General Store. All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+      // --- Product Database ---
+      const products = {
+        p1: {
+          name: "Fresh Strawberry",
+          price: "Rs 350 /kg",
+          image:
+            "https://images.unsplash.com/photo-1587393855524-087f83d95c9f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=500&q=80",
+          description:
+            "Juicy, sweet, and perfectly ripe strawberries, packed with vitamins. Ideal for desserts, smoothies, or a healthy snack.",
+        },
+        p2: {
+          name: "Cauliflower",
+          price: "Rs 80 /kg",
+          image:
+            "https://images.unsplash.com/photo-1518977956812-af038af24c99?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=500&q=80",
+          description:
+            "Fresh, crisp, and snow-white cauliflower. A versatile vegetable that's great for roasting, steaming, or making cauliflower rice.",
+        },
+        p3: {
+          name: "Dry Walnut",
+          price: "Rs 1,100 /kg",
+          image:
+            "https://images.unsplash.com/photo-1565279261304-22b515d4872f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=500&q=80",
+          description:
+            "High-quality dry walnuts, rich in omega-3 fatty acids and antioxidants. A perfect addition to your breakfast or for healthy snacking.",
+        },
+        p4: {
+          name: "Red Chilli",
+          price: "Rs 220 /kg",
+          image:
+            "https://images.unsplash.com/photo-1599313333333-a365f5a2e558?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=500&q=80",
+          description:
+            "Spicy and vibrant red chillies to add a fiery kick to your curries and sauces. Freshly sourced for maximum flavor.",
+        },
+        p5: {
+          name: "Wheat Flour (10kg)",
+          price: "Rs 1,300",
+          image:
+            "https://images.unsplash.com/photo-1598274291416-527e024222f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=500&q=80",
+          description:
+            "Fine, whole wheat flour, perfect for making soft rotis, chapatis, and bread. A staple for every Pakistani kitchen.",
+        },
+        p6: {
+          name: "Basmati Rice (5kg)",
+          price: "Rs 1,250",
+          image:
+            "https://images.unsplash.com/photo-1585435422891-eb66627c54d1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=500&q=80",
+          description:
+            "Premium long-grain Basmati rice, known for its delightful aroma and fluffy texture. Ideal for biryani, pulao, and everyday meals.",
+        },
+        p7: {
+          name: "Cooking Oil (3L)",
+          price: "Rs 1,500",
+          image:
+            "https://images.unsplash.com/photo-1627843224743-042a2e5a8a2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=500&q=80",
+          description:
+            "Pure, healthy cooking oil. A versatile choice for all your frying, sautéing, and cooking needs. Now in a convenient 3-liter bottle.",
+        },
+        p8: {
+          name: "Tomato",
+          price: "Rs 120 /kg",
+          image:
+            "https://images.unsplash.com/photo-1561138241-943dece74a38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=500&q=80",
+          description:
+            "Farm-fresh, ripe red tomatoes. The essential base for countless dishes, from salads to rich curries and sauces.",
+        },
+        p9: {
+          name: "Bell Pepper",
+          price: "Rs 180 /kg",
+          image:
+            "https://images.unsplash.com/photo-1599295322922-a43d0bac4a26?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=500&q=80",
+          description:
+            "Crisp and colorful bell peppers. Perfect for adding crunch to salads, stir-fries, and pasta dishes.",
+        },
+        p10: {
+          name: "Banana",
+          price: "Rs 90 /dozen",
+          image:
+            "https://images.unsplash.com/photo-1528825871115-3581a5387919?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=500&q=80",
+          description:
+            "Naturally sweet and packed with potassium, these bananas are a perfect on-the-go snack or addition to your breakfast.",
+        },
+        p11: {
+          name: "Orange",
+          price: "Rs 150 /dozen",
+          image:
+            "https://images.unsplash.com/photo-1547514701-42782101795e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=500&q=80",
+          description:
+            "Juicy, seedless oranges bursting with Vitamin C. Great for juicing or as a refreshing, healthy treat.",
+        },
+        p12: {
+          name: "Apple",
+          price: "Rs 250 /kg",
+          image:
+            "https://images.unsplash.com/photo-1560806887-1e4cd0b69665?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=500&q=80",
+          description:
+            "Crisp, sweet, and delicious red apples. An apple a day keeps the doctor away! Sourced from the best orchards.",
+        },
+      };
+
+      // --- Page Navigation ---
+      function showPage(pageId) {
+        document
+          .querySelectorAll(".page-section")
+          .forEach((s) => s.classList.remove("active"));
+        const activePage = document.getElementById(pageId);
+        if (activePage) {
+          activePage.classList.add("active");
+          triggerAnimations(activePage); // Trigger animations for the new page
+        }
+        window.scrollTo(0, 0);
+
+        // Special logic for gallery page to reset filter
+        if (pageId === "gallery") {
+          filterProducts(
+            "all",
+            document.querySelector(".category-link[onclick*=\"'all'\"]")
+          );
+        }
+      }
+
+      // --- Product Detail Page ---
+      function showProductDetail(productId) {
+        const product = products[productId];
+        if (!product) return;
+
+        // Populate the detail page
+        document.getElementById("detail-img").src = product.image;
+        document.getElementById("detail-name").innerText = product.name;
+        document.getElementById("detail-price").innerText = product.price;
+        document.getElementById("detail-desc").innerText = product.description;
+
+        // Set the WhatsApp button's onclick
+        document.getElementById("detail-whatsapp-btn").onclick = () =>
+          shopOnWhatsApp(productId);
+
+        // Show the page
+        showPage("product-detail");
+      }
+
+      // --- Category Filtering ---
+      function filterProducts(category, element) {
+        // Handle active state for sidebar links
+        if (element) {
+          document
+            .querySelectorAll("#category-sidebar .category-link")
+            .forEach((link) => {
+              link.classList.remove("active");
+            });
+          element.classList.add("active");
+        }
+
+        // Filter the products
+        const productCards = document.querySelectorAll(
+          "#product-grid .product-card"
+        );
+        productCards.forEach((card) => {
+          if (category === "all" || card.dataset.category === category) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      }
+
+      // --- Mobile Menu Toggle ---
+      document
+        .getElementById("mobile-menu-button")
+        .addEventListener("click", () => {
+          document.getElementById("mobile-menu").classList.toggle("hidden");
+        });
+      document.querySelectorAll(".mobile-nav-link").forEach((link) => {
+        link.addEventListener("click", () =>
+          document.getElementById("mobile-menu").classList.add("hidden")
+        );
+      });
+
+      // --- WhatsApp Shopping Function ---
+      function shopOnWhatsApp(productId) {
+        const product = products[productId];
+        if (!product) return;
+
+        const phoneNumber = "923001234567"; // IMPORTANT: Replace
+        const message = `Hello, I would like to order: *${product.name}* - *${product.price}*.`;
+        window.open(
+          `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
+          "_blank"
+        );
+      }
+
+      // --- Product Tabs ---
+      const tabs = document.querySelectorAll(".product-tab");
+      const tabContents = document.querySelectorAll(".tab-content");
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          tabs.forEach((t) =>
+            t.classList.remove(
+              "active",
+              "text-blue-600",
+              "border-b-2",
+              "border-blue-600"
+            )
+          );
+          tab.classList.add(
+            "active",
+            "text-blue-600",
+            "border-b-2",
+            "border-blue-600"
+          );
+          tabContents.forEach((content) => content.classList.add("hidden"));
+          document.getElementById(tab.dataset.tab).classList.remove("hidden");
+        });
+      });
+      // Style active tab on load
+      document
+        .querySelector(".product-tab.active")
+        .classList.add("text-blue-600", "border-b-2", "border-blue-600");
+
+      // --- Countdown Timer ---
+      const countdownDate = new Date().setDate(new Date().getDate() + 3);
+      const countdownInterval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+        if (distance < 0) {
+          clearInterval(countdownInterval);
+          document.getElementById("countdown").innerHTML =
+            "<div class='text-xl font-bold'>Offer Expired</div>";
+          return;
+        }
+        if (document.getElementById("days")) {
+          document.getElementById("days").innerText = Math.floor(
+            distance / (1000 * 60 * 60 * 24)
+          )
+            .toString()
+            .padStart(2, "0");
+          document.getElementById("hours").innerText = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          )
+            .toString()
+            .padStart(2, "0");
+          document.getElementById("minutes").innerText = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60)
+          )
+            .toString()
+            .padStart(2, "0");
+          document.getElementById("seconds").innerText = Math.floor(
+            (distance % (1000 * 60)) / 1000
+          )
+            .toString()
+            .padStart(2, "0");
+        }
+      }, 1000);
+
+      // --- Animate on Scroll Logic ---
+      const scrollElements = document.querySelectorAll(".animate-on-scroll");
+      const elementInView = (el) =>
+        el.getBoundingClientRect().top <=
+        (window.innerHeight || document.documentElement.clientHeight);
+      const handleScrollAnimation = () =>
+        scrollElements.forEach((el) => {
+          if (elementInView(el)) el.classList.add("is-visible");
+        });
+      function triggerAnimations(container) {
+        container.querySelectorAll(".animate-on-scroll").forEach((el) => {
+          // Reset animation
+          el.classList.remove("is-visible");
+          // Trigger animation
+          setTimeout(() => {
+            if (elementInView(el)) {
+              // Re-check if it's in view
+              el.classList.add("is-visible");
+            }
+          }, 100);
+        });
+      }
+      window.addEventListener("scroll", handleScrollAnimation);
+
+      // --- Initial Page Load ---
+      document.addEventListener("DOMContentLoaded", () => {
+        const pageId = window.location.hash.substring(1) || "home";
+        showPage(pageId);
+        handleScrollAnimation(); // Handle elements visible on load
+      });
+    </script>
+  </body>
+</html>
